@@ -1,0 +1,12 @@
+bin*
+lib
+Debug*
+Release*
+obj*
+*vcproj*.user
+*.ncb
+*.suo
+*.sdf
+*.opensdf
+*.filters
+*.user

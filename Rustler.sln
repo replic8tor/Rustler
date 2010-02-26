@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmVille", "FarmVille\FarmVille.csproj", "{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmScripts", "FarmScripts\FarmScripts.csproj", "{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Admin Tool|Any CPU = Debug Admin Tool|Any CPU
+		Debug Admin Tool|Mixed Platforms = Debug Admin Tool|Mixed Platforms
+		Debug Admin Tool|Win32 = Debug Admin Tool|Win32
+		Debug Admin Tool|x86 = Debug Admin Tool|x86
+		Debug DLL|Any CPU = Debug DLL|Any CPU
+		Debug DLL|Mixed Platforms = Debug DLL|Mixed Platforms
+		Debug DLL|Win32 = Debug DLL|Win32
+		Debug DLL|x86 = Debug DLL|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|Any CPU.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|Mixed Platforms.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|Mixed Platforms.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|Win32.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|x86.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug Admin Tool|x86.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|Any CPU.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|Mixed Platforms.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|Mixed Platforms.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|Win32.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|x86.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug DLL|x86.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|Win32.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|x86.ActiveCfg = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Debug|x86.Build.0 = Debug|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|Any CPU.ActiveCfg = Release|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|Win32.ActiveCfg = Release|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|x86.ActiveCfg = Release|x86
+		{ABD24486-6B8F-4053-8CC7-D18CD2D2CBFF}.Release|x86.Build.0 = Release|x86
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|Any CPU.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|Any CPU.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|Mixed Platforms.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|Win32.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug Admin Tool|x86.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|Any CPU.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|Any CPU.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|Mixed Platforms.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|Win32.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug DLL|x86.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{301A5D6E-DAB9-4BE0-BE45-B9993D5A8AF6}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
