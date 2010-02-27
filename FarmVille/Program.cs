@@ -40,21 +40,26 @@ namespace FarmVille
             if (!System.IO.File.Exists(configFile))
             {
                 Program.Instance.Config = new Bot.Config();
+                Console.WriteLine("Please enter your facebook username:");
+                string user = Console.ReadLine();
+                Console.WriteLine("Please enter your facebook password:");
+                string password = Console.ReadLine();
+                Program.Instance.Config.User.Username = user;
+                Program.Instance.Config.User.Password = password;
                 Bot.Config.Save(configFile, Program.Instance.Config);
-                Console.WriteLine("Bot configuration doesn't exist, creating. Please fill in user information in config.xml and restart the bot.");
-                Console.WriteLine("Press enter to exit.");
-                Console.ReadLine();
-                return;
             }
             else {
                 Program.Instance.Config = Bot.Config.Load(configFile);
                 if (Program.Instance.Config.User.Username.Length == 0 ||
                     Program.Instance.Config.User.Password.Length == 0)
                 {
-                    Console.WriteLine("User information is not set in config.xml. Fill in your login information and restart the bot.");
-                    Console.WriteLine("Press enter to exit.");
-                    Console.ReadLine();
-                    return;
+                    Console.WriteLine("Please enter your facebook username:");
+                    string user = Console.ReadLine();
+                    Console.WriteLine("Please enter your facebook password:");
+                    string password = Console.ReadLine();
+                    Program.Instance.Config.User.Username = user;
+                    Program.Instance.Config.User.Password = password;
+                    Bot.Config.Save(configFile, Program.Instance.Config);
                 }
             }
 
