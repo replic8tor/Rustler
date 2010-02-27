@@ -144,7 +144,8 @@ namespace FarmVille.Bot
         {
             try
             {
-                return (Config)sXMLSerializer.Deserialize(new StreamReader(configLocation));
+                using ( StreamReader sw = new StreamReader(configLocation) )
+                    return (Config)sXMLSerializer.Deserialize(sw);
             }
             catch (Exception ex)
             {
