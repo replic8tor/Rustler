@@ -7,6 +7,13 @@ namespace FarmVille.Game
 {
     public class World
     {
+        private List<NeighborInfo> _neighbors = new List<NeighborInfo>();
+
+        public List<NeighborInfo> Neighbors
+        {
+            get { return _neighbors; }
+            set { _neighbors = value; }
+        }
         private List<BaseObject> _farmObjects = new List<BaseObject>();
 
         public List<BaseObject> FarmObjects
@@ -52,9 +59,11 @@ namespace FarmVille.Game
 
                     FluorineFx.ASObject gameDataObject = firstObject["data"] as FluorineFx.ASObject;
                     FluorineFx.ASObject gameUserInfo = gameDataObject["userInfo"] as FluorineFx.ASObject;
+                    object[] neighborInfo = gameDataObject["neighbors"] as object[];
                     FluorineFx.ASObject gameWorldInfo = gameUserInfo["world"] as FluorineFx.ASObject;
                     FluorineFx.ASObject gamePlayerInfo = gameUserInfo["player"] as FluorineFx.ASObject;
                     object[] gameObjectInfo = gameWorldInfo["objectsArray"] as object[];
+                    LoadNeighbors(neighborInfo);
                     LoadObjects(gameObjectInfo);
                     this.Player = new Game.Player();
                     Player.LoadFromInitRequest(gamePlayerInfo);
@@ -64,6 +73,20 @@ namespace FarmVille.Game
             catch (Exception ex)
             {
                  Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Error, "World", "There was a problem loading world from UserInit : {0}\n{1}", ex.Message, ex.StackTrace);            
+            }
+        }
+
+        private void LoadNeighbors(object[] neighborInfo)
+        {
+            _neighbors.Clear();
+            try
+            {
+                foreach (FluorineFx.ASObject obj in neighborInfo)
+                    _neighbors.Add(NeighborInfo.FromASObject(obj));
+            }
+            catch (Exception ex)
+            {
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Warning, "World", "There was an error loading neighbors.");
             }
         }
 

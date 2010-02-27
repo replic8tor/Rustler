@@ -196,5 +196,33 @@ namespace FarmVille.Bot.Server
                 PendingCallbacks.Clear();
             }
         }
+
+        public static bool GetRequestData(Bot.Server.ServerSession.BlockingCallback result, out object[] dataArray)
+        {
+            dataArray = null;
+            if (!result.Success)
+                return false;
+
+            FluorineFx.ASObject res = result.Result.Result as FluorineFx.ASObject;
+
+            int? errorType = res["errorType"] as int?;
+            string errorData = res["errorData"] as string;
+            if (errorType.HasValue && errorType.Value != 0)
+            {
+                Bot.Scripts.ScriptManager.Instance.RaiseSessionError(errorType.Value, errorData);
+                return false;
+            }
+
+            dataArray = res["data"] as object[];
+            if (dataArray.Length == 0)
+            {
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Server call returned blank data. Aborting.");
+                Bot.Scripts.ScriptManager.Instance.RaiseSessionError(-1, "Blank data received");
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

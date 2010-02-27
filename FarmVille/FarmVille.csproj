@@ -63,7 +63,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime">
@@ -72,7 +72,8 @@
     <Reference Include="Everworld">
       <HintPath>..\libs\Everworld.dll</HintPath>
     </Reference>
-    <Reference Include="FluorineFx">
+    <Reference Include="FluorineFx, Version=1.0.0.17, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\FluorineFx.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
@@ -92,6 +93,7 @@
     <Compile Include="Bot\GameSession.cs" />
     <Compile Include="Bot\Scripts\SeedPicker.cs" />
     <Compile Include="Bot\Server\ServerSession.cs" />
+    <Compile Include="Game\NeighborInfo.cs" />
     <Compile Include="Game\Objects\AnimalBuildingObject.cs" />
     <Compile Include="Game\Objects\AnimalObject.cs" />
     <Compile Include="Game\Objects\BaseObject.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Game\Requests\HarvestTreeSubRequest.cs" />
     <Compile Include="Game\Requests\HarvestAnimalSubRequest.cs" />
     <Compile Include="Game\Requests\HarvestPlotSubRequest.cs" />
+    <Compile Include="Game\Requests\LoadWorldSubRequest.cs" />
     <Compile Include="Game\Requests\PlowPlotSubRequest.cs" />
     <Compile Include="Game\Requests\PlantPlotSubRequest.cs" />
     <Compile Include="Game\Requests\InitUserSubRequest.cs" />

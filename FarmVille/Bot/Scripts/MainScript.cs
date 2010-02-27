@@ -114,6 +114,8 @@ namespace FarmVille.Bot.Scripts
             else
             {
                 double nextHarvest = growTimes.Min();
+                if (nextHarvest > 1267243169000.0)
+                    nextHarvest /= 1000;
                 double secondsToNextHarvest = nextHarvest - Everworld.Utility.Time.UnixTime(session.ServerSession.ServerTimeOffset);
                 try
                 {

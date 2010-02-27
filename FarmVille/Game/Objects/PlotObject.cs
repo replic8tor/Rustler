@@ -47,33 +47,7 @@ namespace FarmVille.Game.Objects
             base.FromObject(obj);
         }
 
-        private static bool CheckServerCall(Bot.Server.ServerSession.BlockingCallback result, out object[] dataArray)
-        {
-            dataArray = null;
-            if (!result.Success)
-                return false;
-
-            FluorineFx.ASObject res = result.Result.Result as FluorineFx.ASObject;
-
-            int? errorType = res["errorType"] as int?;
-            string errorData = res["errorData"] as string;
-            if (errorType.HasValue && errorType.Value != 0)
-            {
-                Bot.Scripts.ScriptManager.Instance.RaiseSessionError(errorType.Value, errorData);
-                return false;
-            }
-
-            dataArray = res["data"] as object[];
-            if (dataArray.Length == 0)
-            {
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Server call returned blank data. Aborting.");
-                Bot.Scripts.ScriptManager.Instance.RaiseSessionError(-1, "Blank data received");
-                return false;
-            }
-
-            return true;
-
-        }
+        
 
         protected virtual bool OnPlantResult(Game.Requests.PlantPlotSubRequest request, FluorineFx.ASObject requestResponse) {
 
@@ -118,7 +92,7 @@ namespace FarmVille.Game.Objects
 
             object[] dataArray;
 
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
 
             FluorineFx.ASObject firstObject = dataArray[0] as FluorineFx.ASObject;
@@ -138,7 +112,7 @@ namespace FarmVille.Game.Objects
             }
             Bot.Server.ServerSession.BlockingCallback result = Program.Instance.GameSession.ServerSession.MakeBlockingRequest(req);
             object[] dataArray;
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
            
             for (int x = 0; x < dataArray.Length; x++)
@@ -184,7 +158,7 @@ namespace FarmVille.Game.Objects
             Bot.Server.ServerSession.BlockingCallback result = Program.Instance.GameSession.ServerSession.MakeBlockingRequest(req);
             object[] dataArray;
 
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
 
             if (!OnPlowResult(req.BatchedRequests[0] as Game.Requests.PlowPlotSubRequest, dataArray[0] as FluorineFx.ASObject))
@@ -199,7 +173,7 @@ namespace FarmVille.Game.Objects
             Bot.Server.ServerSession.BlockingCallback result = Program.Instance.GameSession.ServerSession.MakeBlockingRequest(req);
 
             object[] dataArray;
-            if ( !CheckServerCall(result, out dataArray) )
+            if ( !Bot.Server.ServerSession.GetRequestData(result, out dataArray) )
                 return false;
 
             for (int x = 0; x < dataArray.Length; x++)
@@ -263,7 +237,7 @@ namespace FarmVille.Game.Objects
 
             object[] dataArray;
 
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
             if (!OnHarvestResult(req.BatchedRequests[0] as Game.Requests.HarvestPlotSubRequest, dataArray[0] as FluorineFx.ASObject))
                 return false;
@@ -281,7 +255,7 @@ namespace FarmVille.Game.Objects
 
             object[] dataArray;
 
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
             for (int x = 0; x < dataArray.Length; x++)
             {
@@ -319,7 +293,7 @@ namespace FarmVille.Game.Objects
             Bot.Server.ServerSession.BlockingCallback result = Program.Instance.GameSession.ServerSession.MakeBlockingRequest(req);
             
             object[] dataArray;
-            if (!CheckServerCall(result, out dataArray))
+            if (!Bot.Server.ServerSession.GetRequestData(result, out dataArray))
                 return false;
 
             for (int x = 0; x < dataArray.Length; x++)
