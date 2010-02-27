@@ -69,7 +69,8 @@ namespace FarmVille
                 writer = new System.IO.StreamWriter("Log." + Everworld.Utility.Time.UnixTime() + ".txt");
                 Program.Instance.Logger.OnLogEvent += new Everworld.Logging.Logger.OnLogDelegate(Logger_OnLogEvent);
             }
-            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Application started.");
+            
+            
             Program.Instance.Run();
             Console.ReadLine();
             
@@ -106,6 +107,8 @@ namespace FarmVille
         {
             ServicePointManager.ServerCertificateValidationCallback = ((sender, certificate, chain, sslPolicyErrors) => true);
             Initialize();
+            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Application started.");
+            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             Bot.Scripts.ScriptManager.Instance.Run();
             
 
