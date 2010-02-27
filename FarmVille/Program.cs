@@ -64,8 +64,11 @@ namespace FarmVille
                 }
             }
 
-            writer = new System.IO.StreamWriter("Log." + Everworld.Utility.Time.UnixTime() + ".txt");
-            Program.Instance.Logger.OnLogEvent += new Everworld.Logging.Logger.OnLogDelegate(Logger_OnLogEvent);
+            if (Program.Instance.Config.User.LogToFile)
+            {
+                writer = new System.IO.StreamWriter("Log." + Everworld.Utility.Time.UnixTime() + ".txt");
+                Program.Instance.Logger.OnLogEvent += new Everworld.Logging.Logger.OnLogDelegate(Logger_OnLogEvent);
+            }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Application started.");
             Program.Instance.Run();
             Console.ReadLine();
@@ -74,15 +77,21 @@ namespace FarmVille
 
         static void Logger_OnLogEvent(string pLog)
         {
-            writer.WriteLine(pLog);
-            writer.Flush();
+            if (writer != null)
+            {
+                writer.WriteLine(pLog);
+                writer.Flush();
+            }
         }
         static System.IO.TextWriter writer;
 
         static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            writer.Flush();
-            writer.Close();
+            if (writer != null)
+            {
+                writer.Flush();
+                writer.Close();
+            }
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

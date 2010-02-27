@@ -169,6 +169,7 @@ namespace FarmVille.Bot
         {
             public string Username = "";
             public string Password = "";
+            public bool LogToFile = false;
         }
 
         #endregion
