@@ -118,15 +118,16 @@ namespace FarmVille.Bot.Scripts
 
             }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "NeighborLynx", "{0} links generated.", y);
-            using (System.IO.TextWriter tw = new System.IO.StreamWriter(string.Format("{0}.links.txt", Everworld.Utility.Time.UnixTime())))
+            y = 0;
+            using (System.IO.TextWriter tw = new System.IO.StreamWriter(string.Format("{0}.links.html", Everworld.Utility.Time.UnixTime())))
             {
                 foreach (string key in links.Keys)
                 {
                     List<string> linkslist = links[key];
                     linkslist.Sort();
-                    tw.WriteLine(key);
+                    tw.WriteLine(key+"<br />");
                     foreach (string str in linkslist)
-                        tw.WriteLine(str);
+                        tw.WriteLine("<a href=\"" + str + "\">" + (y++) + "</a><br />");
                 }
                 tw.Flush();
                 tw.Close();
