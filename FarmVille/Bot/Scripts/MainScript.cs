@@ -163,6 +163,13 @@ namespace FarmVille.Bot.Scripts
                         return p as Game.Objects.BaseObject;
                     }));
             }
+            List<string> masteryTypes = new List<string>();
+            foreach (Game.Objects.BaseObject baseObject in harvestablePlots)
+            {
+                Game.Objects.PlotObject plot = baseObject as Game.Objects.PlotObject;
+                if (!masteryTypes.Contains(plot.ItemName) && Program.Instance.GameSession.World.Player.CountToMastery(plot.ItemName) > 0 )
+                    masteryTypes.Add(plot.ItemName);
+            }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} objects to harvest", harvestablePlots.Count);
             int count = harvestablePlots.Count;
             bool error = false;
@@ -170,7 +177,16 @@ namespace FarmVille.Bot.Scripts
             {
                 if (!Game.Objects.PlotObject.MassHarvest(harvestablePlots.GetRange(x, Math.Min(20, harvestablePlots.Count - x)).ToArray()))
                     return false;
-            }            
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Planted {0} of {1}", x, count);
+            }
+
+            foreach (string str in masteryTypes)
+            {
+                if (Program.Instance.GameSession.World.Player.CountToMastery(str) <= 0)
+                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Mastered {0}", str);
+                else
+                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Mastery of {0} in {1} more harvests", str, Program.Instance.GameSession.World.Player.CountToMastery(str));
+            }
             
 
             foreach (Script script in ScriptManager.Instance.Scripts)
@@ -251,6 +267,7 @@ namespace FarmVille.Bot.Scripts
             {
                 if (!Game.Objects.PlotObject.MassPlow(plowablePlots.GetRange(x, Math.Min(20, count - x)).ToArray()))
                     return false;
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Plowed {0} of {1}", x, count);
             }
 
             foreach (Script script in ScriptManager.Instance.Scripts)
@@ -287,6 +304,7 @@ namespace FarmVille.Bot.Scripts
             {
                 if (!Game.Objects.PlotObject.MassPlant(plantablePlots.GetRange(x, Math.Min(20, count - x)).ToArray(), Program.Instance.Config.Farm.PlantSeed))
                     return false;
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Planted {0} of {1}", x, count);
             }
             
             foreach (Script script in ScriptManager.Instance.Scripts)

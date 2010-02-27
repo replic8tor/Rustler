@@ -53,7 +53,7 @@ namespace FarmVille.Game.Objects
 
             if ((int)requestResponse["errorType"] == 0)
             {
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Planted {0}({1}) @ {2},{3}", request.PlantRequest, this.Id, this.Position.X, this.Position.Y);
+                // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Planted {0}({1}) @ {2},{3}", request.PlantRequest, this.Id, this.Position.X, this.Position.Y);
 
                 this.ItemName = request.PlantRequest;
                 this.PlantTime = request.SentPlantTime;
@@ -128,7 +128,7 @@ namespace FarmVille.Game.Objects
         protected virtual bool OnPlowResult(Game.Requests.PlowPlotSubRequest request, FluorineFx.ASObject requestResponse) {
             if ((int)requestResponse["errorType"] == 0)
             {
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Plowed plot({0}) @ {1},{2}", this.Id, this.Position.X, this.Position.Y);
+                //Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Plowed plot({0}) @ {1},{2}", this.Id, this.Position.X, this.Position.Y);
                 this.IsBigPlot = false;
                 this.IsJumbo = false;
                 this.IsProduceItem = false;
@@ -203,12 +203,12 @@ namespace FarmVille.Game.Objects
                 }
                 
 
-                string message = string.Format("Harvested {0}({1}) @ {2},{3}", this.ItemName, this.Id, this.Position.X, this.Position.Y);
+               // string message = string.Format("Harvested {0}({1}) @ {2},{3}", this.ItemName, this.Id, this.Position.X, this.Position.Y);
 
-                if (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName) > 0)
-                    message += " Master in " + (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)).ToString() + " (" + ((Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)) - Program.Instance.GameSession.World.GetPlantedCount(this.ItemName)).ToString() + ")";
+               // if (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName) > 0)
+               //     message += " Master in " + (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)).ToString() + " (" + ((Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)) - Program.Instance.GameSession.World.GetPlantedCount(this.ItemName)).ToString() + ")";
 
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", message);
+                // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", message);
 
                 this.IsBigPlot = false;
                 this.IsJumbo = false;
@@ -271,8 +271,6 @@ namespace FarmVille.Game.Objects
         {
             if ((int)requestResponse["errorType"] == 0)
             {
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Removed plot ({0}) @ {1},{2}", this.Id, this.Position.X, this.Position.Y);
-
                 Program.Instance.GameSession.World.FarmObjects.Remove(this);
                 if (Program.Instance.GameSession.World.SuperPlots.ContainsKey(this.Position.X + "," + this.Position.Y))
                     Program.Instance.GameSession.World.SuperPlots[this.Position.X + "," + this.Position.Y].Remove(this);

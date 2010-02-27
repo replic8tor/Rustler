@@ -36,6 +36,7 @@ namespace FarmVille
             Console.SetWindowSize(100, 25);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
             string configFile = "config.xml";
             if (!System.IO.File.Exists(configFile))
             {
@@ -63,11 +64,25 @@ namespace FarmVille
                 }
             }
 
-            
+            writer = new System.IO.StreamWriter("Log." + Everworld.Utility.Time.UnixTime() + ".txt");
+            Program.Instance.Logger.OnLogEvent += new Everworld.Logging.Logger.OnLogDelegate(Logger_OnLogEvent);
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Application started.");
             Program.Instance.Run();
             Console.ReadLine();
             
+        }
+
+        static void Logger_OnLogEvent(string pLog)
+        {
+            writer.WriteLine(pLog);
+            writer.Flush();
+        }
+        static System.IO.TextWriter writer;
+
+        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            writer.Flush();
+            writer.Close();
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
