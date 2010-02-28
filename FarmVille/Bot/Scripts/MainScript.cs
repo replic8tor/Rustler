@@ -315,6 +315,8 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnFarmWork(session))
                     return false;
 
+            UpdateWorldState(session);
+
             return true;
         }
 
