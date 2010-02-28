@@ -56,7 +56,7 @@ namespace FarmVille.Game.Objects
                 // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Planted {0}({1}) @ {2},{3}", request.PlantRequest, this.Id, this.Position.X, this.Position.Y);
 
                 this.ItemName = request.PlantRequest;
-                this.PlantTime = request.SentPlantTime;
+                this.PlantTime = request.SentPlantTime / 1000;
                 this.IsBigPlot = false;
                 this.IsJumbo = false;
                 this.IsProduceItem = false;
