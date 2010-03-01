@@ -77,6 +77,7 @@ namespace FarmVille.Bot.Scripts
         public override bool OnBeforeFarmWork(Bot.GameSession session)
         {
             UpdateWorldState(session);
+            SetNextCycleTime();
             foreach (Script script in ScriptManager.Instance.Scripts)
                 if (!script.OnBeforeFarmWork(session))
                     return false;
@@ -100,17 +101,38 @@ namespace FarmVille.Bot.Scripts
                 plantedCrops[plot.ItemName] = plantedCrops[plot.ItemName] + 1;
             }
 
-            plots = session.World.FarmObjects.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
+            string output = "Crops planted: ";
+            bool first = true;
+            List<string> keys = plantedCrops.Keys.ToList();
+            keys.Sort();
+            foreach (string key in keys)
+            {
+                if (!first)
+                    output += string.Format(", {0} {1}", key, plantedCrops[key].ToString());
+                else
+                    output += string.Format("{0} {1}", key, plantedCrops[key].ToString());
+                first = false;
+            }
 
-            IEnumerable<double> growTimes = plots.Select(x => 
+            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", output);
+
+        }
+
+        public override void SetNextCycleTime()
+        {
+            GameSession session = Program.Instance.GameSession;
+
+            List<Game.Objects.BaseObject> plots = session.World.FarmObjects.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
+
+            IEnumerable<double> growTimes = plots.Select(x =>
                 ((Game.Objects.PlotObject)x).PlantTime + Game.Settings.SeedSetting.SeedSettings[((Game.Objects.PlotObject)x).ItemName].GrowTimeInSeconds
                 );
 
-            growTimes =   from n in growTimes
-                          where n > Everworld.Utility.Time.UnixTime(session.ServerSession.ServerTimeOffset)
-                                select n;
+            growTimes = from n in growTimes
+                        where n > Everworld.Utility.Time.UnixTime(session.ServerSession.ServerTimeOffset)
+                        select n;
             if (growTimes == null || growTimes.Count() == 0)
-                ScriptManager.Instance.SetNextUpdate( DateTime.Now.AddMinutes(5) );
+                ScriptManager.Instance.SetNextUpdate(DateTime.Now.AddMinutes(5));
             else
             {
                 double nextHarvest = growTimes.Min();
@@ -127,22 +149,6 @@ namespace FarmVille.Bot.Scripts
                     secondsToNextHarvest = secondsToNextHarvest;
                 }
             }
-
-            string output = "Crops planted: ";
-            bool first = true;
-            List<string> keys = plantedCrops.Keys.ToList();
-            keys.Sort();
-            foreach (string key in keys)
-            {
-                if (!first)
-                    output += string.Format(", {0} {1}", key, plantedCrops[key].ToString());
-                else
-                    output += string.Format("{0} {1}", key, plantedCrops[key].ToString());
-                first = false;
-            }
-
-            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", output);
-
         }
 
         public override bool OnBeforeHarvest(Bot.GameSession session)
@@ -313,6 +319,8 @@ namespace FarmVille.Bot.Scripts
             foreach (Script script in ScriptManager.Instance.Scripts)
                 if (!script.OnFarmWork(session))
                     return false;
+
+            SetNextCycleTime();
 
             return true;
         }
