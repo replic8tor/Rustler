@@ -118,7 +118,7 @@ namespace FarmVille.Bot.Scripts
 
         }
 
-        public override void SetNextCycleTime()
+        public virtual void SetNextCycleTime()
         {
             GameSession session = Program.Instance.GameSession;
 
