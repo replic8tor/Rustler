@@ -93,6 +93,9 @@
     <Compile Include="Bot\GameSession.cs" />
     <Compile Include="Bot\Scripts\SeedPicker.cs" />
     <Compile Include="Bot\Server\ServerSession.cs" />
+    <Compile Include="Game\Classes\AMFAttribute.cs" />
+    <Compile Include="Game\Classes\Player.cs" />
+    <Compile Include="Game\Classes\User.cs" />
     <Compile Include="Game\NeighborInfo.cs" />
     <Compile Include="Game\Objects\AnimalBuildingObject.cs" />
     <Compile Include="Game\Objects\AnimalObject.cs" />
