@@ -102,10 +102,10 @@ namespace FarmVille.Bot.Scripts
                     newplot.State = "plowed";
                     newplot.UsesAltGraphic = false;
                     newplot.PlantTime = float.NaN;
-                    newplot.Position = new Game.Objects.ObjectPosition() { X = plot.X, Y = plot.Y, Z = 0 };
+                    newplot.Position = new Game.Classes.ObjectPosition() { X = plot.X, Y = plot.Y, Z = 0 };
                     if ( !newplot.Plow() )
                         return false;
-                    session.World.FarmObjects.Add(newplot);
+                    session.World.ObjectsArray.Add(newplot);
                     if ( !session.World.SuperPlots.ContainsKey( hashKey ) )
                         session.World.SuperPlots.Add( hashKey, new List<Game.Objects.PlotObject>() );
                     session.World.SuperPlots[hashKey].Add(newplot);   

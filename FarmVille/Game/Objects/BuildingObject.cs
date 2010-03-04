@@ -6,7 +6,7 @@ using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
-    [FarmObjectClass("Building")]
+    [AMFConstructableObject("Building")]
     public class BuildingObject
         : PlantableObject
     {

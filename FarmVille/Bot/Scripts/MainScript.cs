@@ -88,7 +88,7 @@ namespace FarmVille.Bot.Scripts
 
         private void UpdateWorldState(GameSession session)
         {
-            List<Game.Objects.BaseObject> plots = session.World.FarmObjects.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
+            List<Game.Classes.BaseObject> plots = session.World.ObjectsArray.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
 
             Dictionary<string, int> plantedCrops = new Dictionary<string, int>();
 
@@ -122,10 +122,10 @@ namespace FarmVille.Bot.Scripts
         {
             GameSession session = Program.Instance.GameSession;
 
-            List<Game.Objects.BaseObject> plots = session.World.FarmObjects.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
+            List<Game.Classes.BaseObject> plots = session.World.ObjectsArray.FindAll(x => x is Game.Objects.PlotObject && x.State == "planted");
 
-            IEnumerable<double> growTimes = plots.Select(x =>
-                ((Game.Objects.PlotObject)x).PlantTime + Game.Settings.SeedSetting.SeedSettings[((Game.Objects.PlotObject)x).ItemName].GrowTimeInSeconds
+            IEnumerable<double?> growTimes = plots.Select(x =>
+                (double?)((Game.Objects.PlotObject)x).PlantTime + (double?)Game.Settings.SeedSetting.SeedSettings[((Game.Objects.PlotObject)x).ItemName].GrowTimeInSeconds
                 );
 
             growTimes = from n in growTimes
@@ -135,9 +135,9 @@ namespace FarmVille.Bot.Scripts
                 ScriptManager.Instance.SetNextUpdate(DateTime.Now.AddMinutes(5));
             else
             {
-                double nextHarvest = growTimes.Min();
+                double nextHarvest = (double)growTimes.Min();
 
-                if (session.World.FarmObjects.Any(x => x is Game.Objects.PlotObject && ((Game.Objects.PlotObject)x).State == "grown"))
+                if (session.World.ObjectsArray.Any(x => x is Game.Objects.PlotObject && ((Game.Objects.PlotObject)x).State == "grown"))
                     nextHarvest = Everworld.Utility.Time.UnixTime();
                 double secondsToNextHarvest = nextHarvest - Everworld.Utility.Time.UnixTime(session.ServerSession.ServerTimeOffset);
                 try
@@ -157,22 +157,22 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnBeforeHarvest(session))
                     return false;
             
-            List<Game.Objects.BaseObject> harvestablePlots = new List<Game.Objects.BaseObject>();
+            List<Game.Classes.BaseObject> harvestablePlots = new List<Game.Classes.BaseObject>();
             if (!Program.Instance.Config.Farm.OnlyWorkSuperPlots)
-                harvestablePlots = session.World.FarmObjects.FindAll(x => x is Game.Objects.PlotObject && x.State == "grown");
+                harvestablePlots = session.World.ObjectsArray.FindAll(x => x is Game.Objects.PlotObject && x.State == "grown");
             else
             {
                 foreach (List<Game.Objects.PlotObject> list in session.World.SuperPlots.Values)
                     harvestablePlots.AddRange(list.FindAll(x => x.State == "grown").ConvertAll(delegate(Game.Objects.PlotObject p)
                     {
-                        return p as Game.Objects.BaseObject;
+                        return p as Game.Classes.BaseObject;
                     }));
             }
             List<string> masteryTypes = new List<string>();
-            foreach (Game.Objects.BaseObject baseObject in harvestablePlots)
+            foreach (Game.Classes.BaseObject baseObject in harvestablePlots)
             {
                 Game.Objects.PlotObject plot = baseObject as Game.Objects.PlotObject;
-                if (!masteryTypes.Contains(plot.ItemName) && Program.Instance.GameSession.World.Player.CountToMastery(plot.ItemName) > 0 )
+                if (!masteryTypes.Contains(plot.ItemName) && Program.Instance.GameSession.Player.CountToMastery(plot.ItemName) > 0 )
                     masteryTypes.Add(plot.ItemName);
             }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} objects to harvest", harvestablePlots.Count);
@@ -187,10 +187,10 @@ namespace FarmVille.Bot.Scripts
 
             foreach (string str in masteryTypes)
             {
-                if (Program.Instance.GameSession.World.Player.CountToMastery(str) <= 0)
+                if (Program.Instance.GameSession.Player.CountToMastery(str) <= 0)
                     Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Mastered {0}", str);
                 else
-                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Mastery of {0} in {1} more harvests", str, Program.Instance.GameSession.World.Player.CountToMastery(str));
+                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Mastery of {0} in {1} more harvests", str, Program.Instance.GameSession.Player.CountToMastery(str));
             }
             
 
@@ -206,7 +206,7 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnBeforeHarvestAnimals(session))
                     return false;
 
-            List<Game.Objects.BaseObject> harvestableAnimals = session.World.FarmObjects.FindAll(x => x is Game.Objects.AnimalObject && x.State == "ripe" && x.ItemName != "uglyduck" );
+            List<Game.Classes.BaseObject> harvestableAnimals = session.World.ObjectsArray.FindAll(x => x is Game.Objects.AnimalObject && x.State == "ripe" && x.ItemName != "uglyduck" );
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} animals to harvest", harvestableAnimals.Count);
             int count = harvestableAnimals.Count;
             bool error = false;
@@ -227,7 +227,7 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnBeforeHarvestTrees(session))
                     return false;
 
-            List<Game.Objects.BaseObject> harvestableTrees = session.World.FarmObjects.FindAll(x => x is Game.Objects.TreeObject && x.State == "ripe");
+            List<Game.Classes.BaseObject> harvestableTrees = session.World.ObjectsArray.FindAll(x => x is Game.Objects.TreeObject && x.State == "ripe");
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} trees to harvest", harvestableTrees.Count);
             int count = harvestableTrees.Count;
             bool error = false;
@@ -249,23 +249,23 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnBeforePlow(session))
                     return false;
             
-            List<Game.Objects.BaseObject> plowablePlots = new List<Game.Objects.BaseObject>();
+            List<Game.Classes.BaseObject> plowablePlots = new List<Game.Classes.BaseObject>();
             if ( !Program.Instance.Config.Farm.OnlyWorkSuperPlots )
-                plowablePlots = session.World.FarmObjects.FindAll(x => x.State == "fallow" || (Program.Instance.Config.Farm.PlowWitheredPlots && x.State == "withered"));
+                plowablePlots = session.World.ObjectsArray.FindAll(x => x.State == "fallow" || (Program.Instance.Config.Farm.PlowWitheredPlots && x.State == "withered"));
             else
             {
                 foreach (List<Game.Objects.PlotObject> list in session.World.SuperPlots.Values)
                     plowablePlots.AddRange(list.FindAll(x => x.State == "fallow" || x.State == "withered").ConvertAll(delegate(Game.Objects.PlotObject p)
                     {
-                        return p as Game.Objects.BaseObject;
+                        return p as Game.Classes.BaseObject;
                     }));
             }
             
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} objects to plow", plowablePlots.Count);
             int count = plowablePlots.Count;
-            if ((count * 15) > (Program.Instance.GameSession.World.Player.Gold / 2))
+            if ((count * 15) > (Program.Instance.GameSession.Player.Gold / 2))
             {
-                count = Math.Min((int)((Program.Instance.GameSession.World.Player.Gold / 2.0) / 15), count);
+                count = Math.Min((int)((Program.Instance.GameSession.Player.Gold / 2.0) / 15), count);
                 Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Only {0} objects will be plowed because of low cash.", count);
             }
             for (int x = 0; x < count; x += 20)
@@ -286,23 +286,23 @@ namespace FarmVille.Bot.Scripts
                 if (!script.OnBeforePlanting(session))
                     return false;
             
-            List<Game.Objects.BaseObject> plantablePlots = new List<Game.Objects.BaseObject>();
+            List<Game.Classes.BaseObject> plantablePlots = new List<Game.Classes.BaseObject>();
             if ( !Program.Instance.Config.Farm.OnlyWorkSuperPlots )
-                plantablePlots = session.World.FarmObjects.FindAll(x => x.State == "plowed");
+                plantablePlots = session.World.ObjectsArray.FindAll(x => x.State == "plowed");
             else
             {
                 foreach (List<Game.Objects.PlotObject> list in session.World.SuperPlots.Values)
                     plantablePlots.AddRange(list.FindAll(x => x.State == "plowed").ConvertAll(delegate(Game.Objects.PlotObject p)
                     {
-                        return p as Game.Objects.BaseObject;
+                        return p as Game.Classes.BaseObject;
                     }));
             }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "{0} objects to plant", plantablePlots.Count);
             int count = plantablePlots.Count;
             if ( count > 0 && (count * Game.Settings.SeedSetting.SeedSettings[Bot.Scripts.ScriptManager.Instance.Main.SeedPicker.PickSeed((Game.Objects.PlotObject)plantablePlots[0])].Cost)
-                    > Program.Instance.GameSession.World.Player.Gold)
+                    > Program.Instance.GameSession.Player.Gold)
             {
-                count = Math.Min((int)Program.Instance.GameSession.World.Player.Gold / Game.Settings.SeedSetting.SeedSettings[Bot.Scripts.ScriptManager.Instance.Main.SeedPicker.PickSeed((Game.Objects.PlotObject)plantablePlots[0])].Cost, count);
+                count = Math.Min((int)Program.Instance.GameSession.Player.Gold / Game.Settings.SeedSetting.SeedSettings[Bot.Scripts.ScriptManager.Instance.Main.SeedPicker.PickSeed((Game.Objects.PlotObject)plantablePlots[0])].Cost, count);
                 Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Main", "Only plainting {0} because of low cash.", count);
             }
             for (int x = 0; x < count; x += 20)

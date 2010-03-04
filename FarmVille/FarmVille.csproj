@@ -94,12 +94,13 @@
     <Compile Include="Bot\Scripts\SeedPicker.cs" />
     <Compile Include="Bot\Server\ServerSession.cs" />
     <Compile Include="Game\Classes\AMFAttribute.cs" />
+    <Compile Include="Game\Classes\InitUserResponseData.cs" />
     <Compile Include="Game\Classes\Player.cs" />
     <Compile Include="Game\Classes\User.cs" />
-    <Compile Include="Game\NeighborInfo.cs" />
+    <Compile Include="Game\Classes\World.cs" />
     <Compile Include="Game\Objects\AnimalBuildingObject.cs" />
     <Compile Include="Game\Objects\AnimalObject.cs" />
-    <Compile Include="Game\Objects\BaseObject.cs" />
+    <Compile Include="Game\Classes\BaseObject.cs" />
     <Compile Include="Game\Objects\BuildingObject.cs" />
     <Compile Include="Game\Objects\ChickenCoopObject.cs" />
     <Compile Include="Game\Objects\DairyFarmBuilding.cs" />
@@ -107,7 +108,7 @@
     <Compile Include="Game\Objects\FlowerDecorationObject.cs" />
     <Compile Include="Game\Objects\HarvesterObject.cs" />
     <Compile Include="Game\Objects\MaskedDecorationObject.cs" />
-    <Compile Include="Game\Objects\ObjectBuilder.cs" />
+    <Compile Include="Game\Classes\ObjectBuilder.cs" />
     <Compile Include="Game\Objects\PlantableObject.cs" />
     <Compile Include="Game\Objects\PlotObject.cs" />
     <Compile Include="Game\Objects\RotateableDecoration.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Game\Objects\StorageBuilding.cs" />
     <Compile Include="Game\Objects\TractorObject.cs" />
     <Compile Include="Game\Objects\TreeObject.cs" />
-    <Compile Include="Game\Player.cs" />
     <Compile Include="Game\Requests\BaseRequest.cs" />
     <Compile Include="Game\Requests\BasicSessionInfo.cs" />
     <Compile Include="Game\Requests\BatchRequest.cs" />
@@ -136,7 +136,6 @@
     <Compile Include="Bot\Scripts\Script.cs" />
     <Compile Include="Bot\Scripts\ScriptManager.cs" />
     <Compile Include="Game\Settings\SeedSetting.cs" />
-    <Compile Include="Game\World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

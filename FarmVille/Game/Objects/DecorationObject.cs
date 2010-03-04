@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
-    [FarmObjectClass("Decoration")]
+    [AMFConstructableObject("Decoration")]
     public class DecorationObject
         : BaseObject
     {

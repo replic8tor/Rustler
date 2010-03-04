@@ -6,7 +6,7 @@ using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
-    [FarmObjectClass("Plot")]
+    [AMFConstructableObject("Plot")]
     public class PlotObject
         : PlantableObject
     {
@@ -59,13 +59,13 @@ namespace FarmVille.Game.Objects
                 this.UsesAltGraphic = false;
                 this.State = "planted";
 
-                Program.Instance.GameSession.World.Player.Gold -= Game.Settings.SeedSetting.SeedSettings[this.ItemName].Cost;
+                Program.Instance.GameSession.Player.Gold -= Game.Settings.SeedSetting.SeedSettings[this.ItemName].Cost;
                 if (!Program.Instance.GameSession.World.CropCounters.ContainsKey(this.ItemName))
                     Program.Instance.GameSession.World.CropCounters.Add(this.ItemName, 0);
                 Program.Instance.GameSession.World.CropCounters[this.ItemName] = Program.Instance.GameSession.World.CropCounters[this.ItemName] + 1;
 
-                if (!Program.Instance.GameSession.World.FarmObjects.Contains(this))
-                    Program.Instance.GameSession.World.FarmObjects.Add(this);
+                if (!Program.Instance.GameSession.World.ObjectsArray.Contains(this))
+                    Program.Instance.GameSession.World.ObjectsArray.Add(this);
             }
             else
             {
@@ -133,7 +133,7 @@ namespace FarmVille.Game.Objects
                 this.State = "plowed";
                 this.ItemName = null;
 
-                Program.Instance.GameSession.World.Player.Gold -= 15;
+                Program.Instance.GameSession.Player.Gold -= 15;
 
             }
             else
@@ -184,24 +184,24 @@ namespace FarmVille.Game.Objects
             if ((int?)requestResponse["errorType"] == 0)
             {
 
-                Program.Instance.GameSession.World.Player.Gold += Game.Settings.SeedSetting.SeedSettings[this.ItemName].CoinYield;
+                Program.Instance.GameSession.Player.Gold += Game.Settings.SeedSetting.SeedSettings[this.ItemName].CoinYield;
                 if (!Program.Instance.GameSession.World.CropCounters.ContainsKey(this.ItemName))
                     Program.Instance.GameSession.World.CropCounters.Add(this.ItemName, 0);
                 Program.Instance.GameSession.World.CropCounters[this.ItemName] = Program.Instance.GameSession.World.CropCounters[this.ItemName] - 1; // One less planted
                 if (Game.Settings.SeedSetting.SeedSettings[this.ItemName].Mastery == true)
                 {
-                    if (!Program.Instance.GameSession.World.Player.MasteryCounters.ContainsKey(this.ItemName))
-                        Program.Instance.GameSession.World.Player.MasteryCounters.Add(this.ItemName, 0);
+                    if (!Program.Instance.GameSession.Player.MasteryCounters.ContainsKey(this.ItemName))
+                        Program.Instance.GameSession.Player.MasteryCounters.Add(this.ItemName, 0);
 
-                    Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] = Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] + 1; // one more mastery point?
+                    Program.Instance.GameSession.Player.MasteryCounters[this.ItemName] = Program.Instance.GameSession.Player.MasteryCounters[this.ItemName] + 1; // one more mastery point?
 
                 }
                 
 
                // string message = string.Format("Harvested {0}({1}) @ {2},{3}", this.ItemName, this.Id, this.Position.X, this.Position.Y);
 
-               // if (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName) > 0)
-               //     message += " Master in " + (Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)).ToString() + " (" + ((Program.Instance.GameSession.World.Player.CountToMastery(this.ItemName)) - Program.Instance.GameSession.World.GetPlantedCount(this.ItemName)).ToString() + ")";
+               // if (Program.Instance.GameSession.Player.CountToMastery(this.ItemName) > 0)
+               //     message += " Master in " + (Program.Instance.GameSession.Player.CountToMastery(this.ItemName)).ToString() + " (" + ((Program.Instance.GameSession.Player.CountToMastery(this.ItemName)) - Program.Instance.GameSession.World.GetPlantedCount(this.ItemName)).ToString() + ")";
 
                 // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", message);
 
@@ -266,7 +266,7 @@ namespace FarmVille.Game.Objects
         {
             if ((int?)requestResponse["errorType"] == 0)
             {
-                Program.Instance.GameSession.World.FarmObjects.Remove(this);
+                Program.Instance.GameSession.World.ObjectsArray.Remove(this);
                 if (Program.Instance.GameSession.World.SuperPlots.ContainsKey(this.Position.X + "," + this.Position.Y))
                     Program.Instance.GameSession.World.SuperPlots[this.Position.X + "," + this.Position.Y].Remove(this);
             }

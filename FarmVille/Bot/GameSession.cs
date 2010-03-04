@@ -21,12 +21,20 @@ namespace FarmVille.Bot
             get { return _serverSession; }
             set { _serverSession = value; }
         }
-        private Game.World _world;
+        private Game.Classes.World _world;
 
-        public Game.World World
+        public Game.Classes.World World
         {
             get { return _world; }
             set { _world = value; }
+        }
+
+        private Game.Classes.Player _player;
+
+        public Game.Classes.Player Player
+        {
+            get { return _player; }
+            set { _player = value; }
         }
 
      
@@ -40,9 +48,22 @@ namespace FarmVille.Bot
                 return false;
             
             FluorineFx.ASObject res = result.Result.Result as FluorineFx.ASObject;
-            _world = new Game.World();
-            Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Processing world info.");
-            _world.ProcessFromUserInitResponse(res);
+            if (res != null)
+            {
+                object[] dataArray = res["data"] as object[];
+
+                FluorineFx.ASObject firstObject = dataArray[0] as FluorineFx.ASObject;
+                double? serverTime = firstObject["serverTime"] as double?;
+
+                FluorineFx.ASObject gameDataObject = firstObject["data"] as FluorineFx.ASObject;
+                Game.Classes.InitUserResponseData initUserResponse = new Game.Classes.InitUserResponseData();
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Processing world info.");
+                initUserResponse.FromAMF(gameDataObject);
+                _world = initUserResponse.UserInfo.World;
+                _player = initUserResponse.UserInfo.Player;
+            }
+            
+            
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "World loaded.");
             return true;
             

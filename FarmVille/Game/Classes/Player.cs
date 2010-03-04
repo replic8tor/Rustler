@@ -5,11 +5,17 @@ using System.Text;
 
 namespace FarmVille.Game.Classes
 {
-    class Player :
+    public class Player :
         AMFObject
     {
         [AMF("gold")]
         private double? _gold;
+
+        public double? Gold
+        {
+            get { return _gold; }
+            set { _gold = value; }
+        }
         [AMF("cash")]
         private double? _cash;
         [AMF("cashEarned")]
@@ -24,6 +30,12 @@ namespace FarmVille.Game.Classes
         private double? _averageCPACashPrice;
         [AMF("level")]
         private double? _level;
+
+        public double? Level
+        {
+            get { return _level; }
+            set { _level = value; }
+        }
         [AMF("xp")]
         private double? xp;
         [AMF("energyMax")]
@@ -66,6 +78,12 @@ namespace FarmVille.Game.Classes
         private System.Collections.Generic.List<string> _promos;
         [AMFArray("neighbors", typeof(string))]
         private System.Collections.Generic.List<string> _neighbors;
+
+        public System.Collections.Generic.List<string> Neighbors
+        {
+            get { return _neighbors; }
+            set { _neighbors = value; }
+        }
         [AMFArray("sentGifts", typeof(double?))]
         private Dictionary<string, double?> _sentGifts;
         [AMFArray("pendingNeighbors", typeof(string))]
@@ -282,7 +300,7 @@ namespace FarmVille.Game.Classes
         }
         [AMFArray("expandFarmLog", typeof(ExpandFarmLogEntry))]
         private List<ExpandFarmLogEntry> _expandFarmLog;
-        [AMFArray("itemPurchasLog", typeof(string))]
+        [AMFArray("itemPurchaseLog", typeof(string))]
         private List<string> _itemPurchaseLog;
         [AMFArray("fuelWeekData", typeof(string))]
         private List<string> _fuelWeekData;
@@ -296,21 +314,22 @@ namespace FarmVille.Game.Classes
         private int? _unwither;
         [AMF("isFarmvilleFan")]
         private string _isFarmvilleFan;
+
+        public Dictionary<string, int> MasteryCounters = new Dictionary<string, int>();
+        public int CountToMastery(string seedName)
+        {
+            if (!Game.Settings.SeedSetting.SeedSettings[seedName].Mastery)
+                return 0;
+            if (!MasteryCounters.ContainsKey(seedName))
+                return Game.Settings.SeedSetting.SeedSettings[seedName].Mastery2Count;
+
+            int count = Game.Settings.SeedSetting.SeedSettings[seedName].Mastery2Count;
+
+            count -= (int)_masteryCounters[Game.Settings.SeedSetting.SeedSettings[seedName].Code];
+
+            return count;
+        }
         
-
-
-    
-
-
-
-        
-
-
-
-        
-
-
-
 
     }
 }

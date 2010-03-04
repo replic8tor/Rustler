@@ -60,11 +60,11 @@ namespace FarmVille.Bot.Scripts
 
             int x = 0;
             int y = 0;
-            foreach (Game.NeighborInfo info in Program.Instance.GameSession.World.Neighbors)
+            foreach (string info in Program.Instance.GameSession.Player.Neighbors)
             {
-                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "NeighborLynx", "Visiting {0} of {1}", ++x, Program.Instance.GameSession.World.Neighbors.Count);
+                Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "NeighborLynx", "Visiting {0} of {1}", ++x, Program.Instance.GameSession.Player.Neighbors.Count);
                 Game.Requests.BatchRequest req = new Game.Requests.BatchRequest("test") { SessionInfo = new Game.Requests.BasicSessionInfo(float.NaN, Program.Instance.GameSession.ServerSession.Token, Program.Instance.GameSession.ServerSession.FlashRevision, Program.Instance.GameSession.ServerSession.FbId) };
-                Game.Requests.LoadWorldRequest loadWorld = new Game.Requests.LoadWorldRequest(1, info.Uid);
+                Game.Requests.LoadWorldRequest loadWorld = new Game.Requests.LoadWorldRequest(1, info);
                 req.BatchedRequests.Add(loadWorld);
                 Server.ServerSession.BlockingCallback callback = Program.Instance.GameSession.ServerSession.MakeBlockingRequest(req);
                 object[] data;
@@ -102,7 +102,7 @@ namespace FarmVille.Bot.Scripts
                                     _visitedLinks.Add(key, key);
                                     // we haven't helped.
 
-                                    string like = string.Format("http://apps.facebook.com/onthefarm/reward.php?frHost={0}&frId={1}&frType={2}", info.Uid, key, reward);
+                                    string like = string.Format("http://apps.facebook.com/onthefarm/reward.php?frHost={0}&frId={1}&frType={2}", info, key, reward);
                                     if (!links.ContainsKey(reward))
                                         links.Add(reward, new List<string>());
                                     links[reward].Add(like);

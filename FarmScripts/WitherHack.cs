@@ -34,7 +34,7 @@ namespace FarmVille.Bot.Scripts
                 int posy = Program.Instance.Config.ReadCustomInt("witherhack", "withery", 0);
 
 
-                List<Game.Objects.BaseObject> objlist = Program.Instance.GameSession.World.FarmObjects.FindAll(
+                List<Game.Classes.BaseObject> objlist = Program.Instance.GameSession.World.ObjectsArray.FindAll(
                     x => x is Game.Objects.PlotObject &&
                         (x.Position.X >= (posx * 4)) &&
                         (x.Position.X <= ((posx + 5) * 4)) &&
@@ -64,7 +64,8 @@ namespace FarmVille.Bot.Scripts
                     IsProduceItem = false,
                     ItemName = "",
                     PlantTime = 0,
-                    Position = new Game.Objects.ObjectPosition()
+                    
+                    Position = new Game.Classes.ObjectPosition()
                     {
                         X = Program.Instance.Config.ReadCustomInt("witherhack", "witherx", 0) * 4,
                         Y = Program.Instance.Config.ReadCustomInt("witherhack", "withery", 0) * 4,
@@ -126,10 +127,10 @@ namespace FarmVille.Bot.Scripts
                 string seedName = (req.BatchedRequests[0] as Game.Requests.WitherHackHarvestRequest).PlantRequest;
                 if (Game.Settings.SeedSetting.SeedSettings[seedName].Mastery == true)
                 {
-                    if (!Program.Instance.GameSession.World.Player.MasteryCounters.ContainsKey(seedName))
-                        Program.Instance.GameSession.World.Player.MasteryCounters.Add(seedName, 0);
+                    if (!Program.Instance.GameSession.Player.MasteryCounters.ContainsKey(seedName))
+                        Program.Instance.GameSession.Player.MasteryCounters.Add(seedName, 0);
 
-                    Program.Instance.GameSession.World.Player.MasteryCounters[seedName] = Program.Instance.GameSession.World.Player.MasteryCounters[seedName] + req.BatchedRequests.Count; // one more mastery point
+                    Program.Instance.GameSession.Player.MasteryCounters[seedName] = Program.Instance.GameSession.Player.MasteryCounters[seedName] + req.BatchedRequests.Count; // one more mastery point
                 }
 
 

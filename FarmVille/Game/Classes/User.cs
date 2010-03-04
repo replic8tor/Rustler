@@ -651,6 +651,14 @@ namespace FarmVille.Game.Classes
             set { _iconCodes = value; }
         }
 
+        [AMFObject("world", typeof(World))]
+        private World _world;
+
+        internal World World
+        {
+            get { return _world; }
+            set { _world = value; }
+        }
         
     }
 }

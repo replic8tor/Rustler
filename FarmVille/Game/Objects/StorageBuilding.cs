@@ -6,11 +6,19 @@ using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
-    [FarmObjectClass("StorageBuilding")]
+    [AMFConstructableObject("StorageBuilding")]
     public class StorageBuilding
         : BuildingObject
     {
-        [AMFDictionary("contents", typeof(int?))]
-        private Dictionary<string, int?> _contents;       
+        public class StorageContents
+            : AMFObject {
+            [AMF("itemCode")]
+            private string _itemCode;
+            [AMF("numItem")]
+            private int? _numItem;
+
+        }
+        [AMFArray("contents", typeof(StorageContents))]
+        private List<StorageContents> _contents;       
     }
 }

@@ -33,6 +33,8 @@ namespace FarmVille
 
         static void Main(string[] args)
         {
+                        
+            
             Console.SetWindowSize(100, 25);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
