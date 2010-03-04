@@ -64,7 +64,7 @@ namespace FarmVille.Game.Objects
             else
                 retVal = (typeof(BaseObject)).InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, null, null) as BaseObject;
 
-            retVal.FromObject(obj);
+            retVal.FromAMF(obj);
             return retVal;
         }
     }

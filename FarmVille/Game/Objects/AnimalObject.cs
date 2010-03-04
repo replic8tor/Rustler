@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
@@ -9,17 +10,11 @@ namespace FarmVille.Game.Objects
     public class AnimalObject
         : PlantableObject
     {
-        private int _direction;
-        private bool _canWander;
-
-        public override void FromObject(FluorineFx.ASObject obj)
-        {
-            _direction = (int)obj["direction"];
-            _canWander = (bool)obj["canWander"];
-            base.FromObject(obj);
-        }
-
-
+        [AMF("direction")]
+        private int? _direction;
+        [AMF("canWander")]
+        private bool? _canWander;
+        
         public static bool MassHarvest(BaseObject[] animals)
         {
             Game.Requests.BatchRequest req = new Game.Requests.BatchRequest("laughy") { SessionInfo = new Game.Requests.BasicSessionInfo(float.NaN, Program.Instance.GameSession.ServerSession.Token, Program.Instance.GameSession.ServerSession.FlashRevision, Program.Instance.GameSession.ServerSession.FbId) };

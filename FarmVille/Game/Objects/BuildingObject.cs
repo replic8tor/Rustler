@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
@@ -9,17 +10,7 @@ namespace FarmVille.Game.Objects
     public class BuildingObject
         : PlantableObject
     {
-        private float _buildTime;
-
-        public override void FromObject(FluorineFx.ASObject obj)
-        {
-            if (obj["buildTime"] is float)
-                _buildTime = (float)obj["buildTime"];
-            else if (obj["buildTime"] == null)
-                _buildTime = 0;
-            else 
-                _buildTime = (float)(int)obj["buildTime"];
-            base.FromObject(obj);
-        }
+        [AMF("buildTime")]
+        private double? _buildTime;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
@@ -9,14 +10,7 @@ namespace FarmVille.Game.Objects
     public class AnimalBuildingObject
         : StorageBuilding
     {
-        private int _friendFedAnimalBuildingCount;
-        
-
-        public override void FromObject(FluorineFx.ASObject obj)
-        {
-            _friendFedAnimalBuildingCount = (int)obj["friendFedAnimalBuildingCount"];
-            
-            base.FromObject(obj);
-        }
+        [AMF("friendFedAnimalBuildingCount")]
+        private int? _friendFedAnimalBuildingCount;
     }
 }

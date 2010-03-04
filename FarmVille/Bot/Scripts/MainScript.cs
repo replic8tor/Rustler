@@ -350,9 +350,10 @@ namespace FarmVille.Bot.Scripts
             return true;
 
         }
-
+        Random rand = new Random();
         protected virtual void CheckSessionParameters(Dictionary<string, string> sessionParameters, CookieContainer cookieJar, ref HttpWebRequest request, ref HttpWebResponse response, ref Stream resStream, ref StreamReader reader, ref string responseFromServer, ref bool sessionParametersFound)
         {
+            
             string iframetag = "farmville.com/flash.php";
             int loc0 = responseFromServer.IndexOf(iframetag);
 
@@ -361,7 +362,11 @@ namespace FarmVille.Bot.Scripts
                 loc0 = responseFromServer.LastIndexOf('\"', loc0) + 1;
                 int loc1 = responseFromServer.IndexOf("\"", loc0);
                 string url3 = responseFromServer.Substring(loc0, loc1 - loc0).Replace("&amp;", "&");
-                //url3 = url3.Replace("fb-0", "fb-1");
+                if (rand.Next(1, 11) > 5)
+                {
+                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "Login", "Trying alternate login.");
+                    url3 = url3.Replace("fb-0", "fb-1");
+                }
                 request = (HttpWebRequest)WebRequest.Create(url3);
                 request.Method = "GET";
                 request.Referer = response.ResponseUri.ToString();

@@ -64,7 +64,7 @@ namespace FarmVille.Bot.Scripts
                     IsProduceItem = false,
                     ItemName = "",
                     PlantTime = 0,
-                    Position = new Game.Objects.Position()
+                    Position = new Game.Objects.ObjectPosition()
                     {
                         X = Program.Instance.Config.ReadCustomInt("witherhack", "witherx", 0) * 4,
                         Y = Program.Instance.Config.ReadCustomInt("witherhack", "withery", 0) * 4,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
@@ -9,49 +10,43 @@ namespace FarmVille.Game.Objects
     public class PlotObject
         : PlantableObject
     {
-        private bool _isBigPlot;
+        [AMF("isBigPlot")]
+        private bool? _isBigPlot;
 
-        public bool IsBigPlot
+        public bool? IsBigPlot
         {
             get { return _isBigPlot; }
             set { _isBigPlot = value; }
         }
-        private bool _isJumbo;
+        [AMF("isJumbo")]
+        private bool? _isJumbo;
 
-        public bool IsJumbo
+        public bool? IsJumbo
         {
             get { return _isJumbo; }
             set { _isJumbo = value; }
         }
-        private bool _isProduceItem;
+        [AMF("isProduceItem")]
+        private bool? _isProduceItem;
 
-        public bool IsProduceItem
+        public bool? IsProduceItem
         {
             get { return _isProduceItem; }
             set { _isProduceItem = value; }
         }
-        private bool _hasGiftRemaining;
+        [AMF("hasGiftRemaining")]
+        private bool? _hasGiftRemaining;
         
-        public bool HasGiftRemaining
+        public bool? HasGiftRemaining
         {
             get { return _hasGiftRemaining; }
             set { _hasGiftRemaining = value; }
         }
 
-        public override void FromObject(FluorineFx.ASObject obj)
-        {
-            _isBigPlot = (bool)obj["isBigPlot"];
-            _isJumbo = (bool)obj["isJumbo"];
-            _isProduceItem = (bool)obj["isProduceItem"];
-            _hasGiftRemaining = (bool)obj["hasGiftRemaining"];
-            base.FromObject(obj);
-        }
-
-        
-
+              
         protected virtual bool OnPlantResult(Game.Requests.PlantPlotSubRequest request, FluorineFx.ASObject requestResponse) {
 
-            if ((int)requestResponse["errorType"] == 0)
+            if ((int?)requestResponse["errorType"] == 0)
             {
                 // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Planted {0}({1}) @ {2},{3}", request.PlantRequest, this.Id, this.Position.X, this.Position.Y);
 
@@ -126,7 +121,7 @@ namespace FarmVille.Game.Objects
         }
 
         protected virtual bool OnPlowResult(Game.Requests.PlowPlotSubRequest request, FluorineFx.ASObject requestResponse) {
-            if ((int)requestResponse["errorType"] == 0)
+            if ((int?)requestResponse["errorType"] == 0)
             {
                 //Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "PlotObject", "Plowed plot({0}) @ {1},{2}", this.Id, this.Position.X, this.Position.Y);
                 this.IsBigPlot = false;
@@ -186,7 +181,7 @@ namespace FarmVille.Game.Objects
         }
 
         protected virtual bool OnHarvestResult(Game.Requests.HarvestPlotSubRequest request, FluorineFx.ASObject requestResponse) {
-            if ((int)requestResponse["errorType"] == 0)
+            if ((int?)requestResponse["errorType"] == 0)
             {
 
                 Program.Instance.GameSession.World.Player.Gold += Game.Settings.SeedSetting.SeedSettings[this.ItemName].CoinYield;
@@ -198,7 +193,7 @@ namespace FarmVille.Game.Objects
                     if (!Program.Instance.GameSession.World.Player.MasteryCounters.ContainsKey(this.ItemName))
                         Program.Instance.GameSession.World.Player.MasteryCounters.Add(this.ItemName, 0);
 
-                    Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] = Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] + 1; // one more mastery point
+                    Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] = Program.Instance.GameSession.World.Player.MasteryCounters[this.ItemName] + 1; // one more mastery point?
 
                 }
                 
@@ -269,7 +264,7 @@ namespace FarmVille.Game.Objects
 
         protected virtual bool OnRemoveResult(Game.Requests.RemovePlotSubRequest request, FluorineFx.ASObject requestResponse)
         {
-            if ((int)requestResponse["errorType"] == 0)
+            if ((int?)requestResponse["errorType"] == 0)
             {
                 Program.Instance.GameSession.World.FarmObjects.Remove(this);
                 if (Program.Instance.GameSession.World.SuperPlots.ContainsKey(this.Position.X + "," + this.Position.Y))

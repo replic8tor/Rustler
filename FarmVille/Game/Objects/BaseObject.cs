@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FarmVille.Game.Classes;
 
 namespace FarmVille.Game.Objects
 {
@@ -14,34 +15,31 @@ namespace FarmVille.Game.Objects
         public FarmObjectClassAttribute(string pFarmObject) { p_mFarmObjectClass = pFarmObject; }
     }
 
-    public class Position {
-        private int _x;
+    public class ObjectPosition
+     : AMFObject {
+        [AMF("x")]
+        private int? _x;
 
-        public int X
+        public int? X
         {
             get { return _x; }
             set { _x = value; }
         }
-        private int _y;
+        [AMF("y")]
+        private int? _y;
 
-        public int Y
+        public int? Y
         {
             get { return _y; }
             set { _y = value; }
         }
-        private int _z;
+        [AMF("z")]
+        private int? _z;
 
-        public int Z
+        public int? Z
         {
             get { return _z; }
             set { _z = value; }
-        }
-        public virtual Position FromObject(FluorineFx.ASObject obj)
-        {
-            _x = (int) ( obj["x"] ?? 0 );
-            _y = (int)(obj["y"] ?? 0 );
-            _z = (int)(obj["z"] ?? 0 );
-            return this;
         }
 
         public virtual FluorineFx.ASObject ToObject()
@@ -55,22 +53,24 @@ namespace FarmVille.Game.Objects
     }
     
     public class BaseObject
+        : AMFObject
     {
+        [AMF("usesAltGraphic")]
+        private bool? _usesAltGraphic;
 
-        private bool _usesAltGraphic;
-
-        public bool UsesAltGraphic
+        public bool? UsesAltGraphic
         {
             get { return _usesAltGraphic; }
             set { _usesAltGraphic = value; }
         }
         private string _state;
-
+        [AMF("state")]
         public string State
         {
             get { return _state; }
             set { _state = value; }
         }
+        [AMF("itemName")]
         private string _itemName;
 
         public string ItemName
@@ -78,20 +78,24 @@ namespace FarmVille.Game.Objects
             get { return _itemName; }
             set { _itemName = value; }
         }
-        private Position _position;
+        
+        [AMFObject("position",typeof(ObjectPosition))]
+        private ObjectPosition _position;
 
-        public Position Position
+        public ObjectPosition Position
         {
             get { return _position; }
             set { _position = value; }
         }
-        private int _id;
+        [AMF("id")]
+        private int? _id;
 
-        public int Id
+        public int? Id
         {
             get { return _id; }
             set { _id = value; }
         }
+        [AMF("className")]
         private string _className;
 
         public string ClassName
@@ -99,14 +103,16 @@ namespace FarmVille.Game.Objects
             get { return _className; }
             set { _className = value; }
         }
+        [AMF("id")]
+        private bool? _giftable = false;
 
-        private bool _giftable = false;
-
-        public bool Giftable
+        public bool? Giftable
         {
             get { return _giftable; }
             set { _giftable = value; }
         }
+
+        [AMF("giftSenderId")]
         private string _giftSenderId;
 
         public string GiftSenderId
@@ -117,22 +123,13 @@ namespace FarmVille.Game.Objects
         
         
 
-        public virtual void FromObject(FluorineFx.ASObject obj)
+        public override void  FromAMF(FluorineFx.ASObject obj)
         {
-
+ 	        base.FromAMF(obj);
             if (obj.ContainsKey("giftSenderId"))
-            {
                 _giftable = true;
-                _giftSenderId = (string)obj["giftSenderId"];
-            }
-            _usesAltGraphic = (bool)obj["usesAltGraphic"];
-            _state = (string)obj["state"];
-            _itemName = (string)obj["itemName"];
-            _position = new Position().FromObject((FluorineFx.ASObject)obj["position"]);
-            _id = (int)obj["id"];
-            _className = (string)obj["className"];
         }
-
+        
 
     }
 }

@@ -56,7 +56,7 @@ namespace FarmVille.Game.Requests
         */
         public override object[] GetParameterArray()
         {
-            Objects.Position pos = new Objects.Position() { X = _x, Y = _y, Z = 0 };
+            Objects.ObjectPosition pos = new Objects.ObjectPosition() { X = _x, Y = _y, Z = 0 };
             FluorineFx.ASObject parameter1 = new FluorineFx.ASObject();
             parameter1.Add("id", _itemId);
             parameter1.Add("state", "withered");

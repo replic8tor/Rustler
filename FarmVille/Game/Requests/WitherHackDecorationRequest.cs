@@ -55,7 +55,7 @@ namespace FarmVille.Game.Requests
             FluorineFx.ASObject parameter1 = new FluorineFx.ASObject();
             parameter1.Add("id", this._itemId);
             parameter1.Add("className","Decoration");
-            Objects.Position pos = new Objects.Position(){ X = _x, Y = _y, Z = 0 };
+            Objects.ObjectPosition pos = new Objects.ObjectPosition(){ X = _x, Y = _y, Z = 0 };
             parameter1.Add("position", pos.ToObject());
             parameter1.Add("deleted", false);
             parameter1.Add("itemName", _plantRequest);

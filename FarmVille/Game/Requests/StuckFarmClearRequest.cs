@@ -34,7 +34,7 @@ namespace FarmVille.Game.Requests
             parameter1.Add("itemName", "");
             parameter1.Add("plantTime", float.NaN);
             parameter1.Add("direction", 0);
-            parameter1.Add("position", new Game.Objects.Position { X=0, Y=0,Z=0 });
+            parameter1.Add("position", new Game.Objects.ObjectPosition { X=0, Y=0,Z=0 });
             parameter1.Add("className", "Plot");            
 
             return new object[] { "clear", parameter1, new object[] { } };

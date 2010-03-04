@@ -59,6 +59,8 @@ namespace FarmVille.Game
 
                     FluorineFx.ASObject gameDataObject = firstObject["data"] as FluorineFx.ASObject;
                     FluorineFx.ASObject gameUserInfo = gameDataObject["userInfo"] as FluorineFx.ASObject;
+                    Game.Classes.User user = new Classes.User();
+                    user.FromAMF(gameUserInfo);
                     object[] neighborInfo = gameDataObject["neighbors"] as object[];
                     FluorineFx.ASObject gameWorldInfo = gameUserInfo["world"] as FluorineFx.ASObject;
                     FluorineFx.ASObject gamePlayerInfo = gameUserInfo["player"] as FluorineFx.ASObject;

@@ -38,6 +38,7 @@ namespace FarmVille.Bot
             Server.ServerSession.BlockingCallback result =_serverSession.MakeBlockingRequest(req);
             if (result.Success == false)
                 return false;
+            
             FluorineFx.ASObject res = result.Result.Result as FluorineFx.ASObject;
             _world = new Game.World();
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Processing world info.");

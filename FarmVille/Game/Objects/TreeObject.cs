@@ -9,7 +9,6 @@ namespace FarmVille.Game.Objects
     public class TreeObject
         : PlantableObject
     {
-
         public static bool MassHarvest(BaseObject[] trees)
         {
             Game.Requests.BatchRequest req = new Game.Requests.BatchRequest("laughy") { SessionInfo = new Game.Requests.BasicSessionInfo(float.NaN, Program.Instance.GameSession.ServerSession.Token, Program.Instance.GameSession.ServerSession.FlashRevision, Program.Instance.GameSession.ServerSession.FbId) };
