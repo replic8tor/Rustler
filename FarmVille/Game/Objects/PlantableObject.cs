@@ -14,8 +14,8 @@ namespace FarmVille.Game.Objects
 
         public double? PlantTime
         {
-            get { return _plantTime; }
-            set { _plantTime = value; }
+            get { return (_plantTime / 1000.0); }
+            set { _plantTime = value * 1000.0; }
         }
     }
 }

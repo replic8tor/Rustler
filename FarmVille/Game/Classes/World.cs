@@ -18,30 +18,108 @@ namespace FarmVille.Game.Classes
         }
         [AMF("sizeX")]
         private int? _sizeX;
+
+        public int? SizeX
+        {
+            get { return _sizeX; }
+            set { _sizeX = value; }
+        }
         [AMF("sizeY")]
         private int? _sizeY;
+
+        public int? SizeY
+        {
+            get { return _sizeY; }
+            set { _sizeY = value; }
+        }
         [AMF("tileSet")]
         private string _tileSet;
+
+        public string TileSet
+        {
+            get { return _tileSet; }
+            set { _tileSet = value; }
+        }
         [AMF("versionFromDB")]
         private int? _versionFromDB;
+
+        public int? VersionFromDB
+        {
+            get { return _versionFromDB; }
+            set { _versionFromDB = value; }
+        }
         [AMFArray("messages",typeof(string))]
         private List<string> _messages;
+
+        public List<string> Messages
+        {
+            get { return _messages; }
+            set { _messages = value; }
+        }
         [AMFDictionary("animalsFedData", typeof(int?))]
         private Dictionary<string, int?> _animalsFedData;
+
+        public Dictionary<string, int?> AnimalsFedData
+        {
+            get { return _animalsFedData; }
+            set { _animalsFedData = value; }
+        }
         [AMFArray("extraItemData",typeof(string))]
         private List<string> _extraItemData;
+
+        public List<string> ExtraItemData
+        {
+            get { return _extraItemData; }
+            set { _extraItemData = value; }
+        }
         [AMF("loadedEmpty")]
         private bool? _loadedEmpty;
+
+        public bool? LoadedEmpty
+        {
+            get { return _loadedEmpty; }
+            set { _loadedEmpty = value; }
+        }
         [AMFArray("tempToIdMap",typeof(string))]
         private List<string> _tempToIdMap;
+
+        public List<string> TempToIdMap
+        {
+            get { return _tempToIdMap; }
+            set { _tempToIdMap = value; }
+        }
         [AMFArray("tempToIdMapTime",typeof(double?))]
         private List<double?> _tempToIdMapTime;
+
+        public List<double?> TempToIdMapTime
+        {
+            get { return _tempToIdMapTime; }
+            set { _tempToIdMapTime = value; }
+        }
         [AMF("v")]
         private int? _v;
+
+        public int? V
+        {
+            get { return _v; }
+            set { _v = value; }
+        }
         [AMF("className")]
         private string _className;
+
+        public string ClassName
+        {
+            get { return _className; }
+            set { _className = value; }
+        }
         [AMF("syncBack")]
         private string _syncBack;
+
+        public string SyncBack
+        {
+            get { return _syncBack; }
+            set { _syncBack = value; }
+        }
 
         public override void FromAMF(FluorineFx.ASObject obj)
         {

@@ -91,7 +91,9 @@
   <ItemGroup>
     <Compile Include="Bot\Config.cs" />
     <Compile Include="Bot\GameSession.cs" />
+    <Compile Include="Bot\Scripts\NeighborLynx.cs" />
     <Compile Include="Bot\Scripts\SeedPicker.cs" />
+    <Compile Include="Bot\Scripts\WitherHack.cs" />
     <Compile Include="Bot\Server\ServerSession.cs" />
     <Compile Include="Game\Classes\AMFAttribute.cs" />
     <Compile Include="Game\Classes\InitUserResponseData.cs" />

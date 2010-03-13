@@ -624,7 +624,7 @@ namespace FarmVille.Game.Classes
         [AMFObject("attr", typeof(UserAttributes))]
         private UserAttributes _attributes;
 
-        internal UserAttributes Attributes
+        public UserAttributes Attributes
         {
             get { return _attributes; }
             set { _attributes = value; }
