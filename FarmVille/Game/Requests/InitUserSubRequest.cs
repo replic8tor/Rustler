@@ -12,7 +12,7 @@ namespace FarmVille.Game.Requests
             public string Field0 = "Nicole";
             public int Field1 = 480;
             public object[] ToArray() { 
-                return new Object[] { Field0, Field1 };
+                return new Object[] { Field0, Field1, true };
             }
         }
 
