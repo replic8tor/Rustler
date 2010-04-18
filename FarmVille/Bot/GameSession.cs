@@ -101,15 +101,14 @@ namespace FarmVille.Bot
 
                 // Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Loaded {0}.", setting.Name);
             }
-            /*List<Game.Settings.SeedSetting> list = Game.Settings.SeedSetting.SeedSettings.Values.ToList();
-            list.Sort(delegate(Game.Settings.SeedSetting s1, Game.Settings.SeedSetting s2)
-            {
-                return s2.CropValue.CompareTo(s1.CropValue);
-            });
+            List<Game.Settings.SeedSetting> list = Game.Settings.SeedSetting.SeedSettings.Values.ToList();
+            list.Sort( delegate( Game.Settings.SeedSetting s1, Game.Settings.SeedSetting s2 ) {
+                           return s2.CropValue.CompareTo( s1.CropValue );
+                       } );
             foreach (Game.Settings.SeedSetting crop in list)
             {
                 Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Loaded {0} {1}", crop.Name, crop.CropValue);
-            }*/
+            }
             Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Info, "GameSession", "Loaded {0} seeds.", Game.Settings.SeedSetting.SeedSettings.Keys.Count);            
         }
         private int _tempId = 63000;

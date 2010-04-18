@@ -26,27 +26,30 @@ namespace FarmVille.Bot.Scripts
 
         public override bool SessionStartup(Bot.GameSession session)
         {
-            while (true)
-            {
+            while (true) {
                 Dictionary<string, string> sessionParameters = new Dictionary<string, string>();
-                bool result = GetLoginParameters(Program.Instance.Config.User.Username, Program.Instance.Config.User.Password, sessionParameters);
-                if ( !result)
-                {
-                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Error,"Login","Login session info was not set, retrying in 30 seconds.");
-                    System.Threading.Thread.Sleep(60 * 1000);
+                bool result = GetLoginParameters( Program.Instance.Config.User.Username,
+                                                  Program.Instance.Config.User.Password, sessionParameters );
+                if ( !result ) {
+                    Program.Instance.Logger.Log( Everworld.Logging.Logger.LogLevel.Error, "Login",
+                                                 "Login session info was not set, retrying in 30 seconds." );
+                    System.Threading.Thread.Sleep( 60 * 1000 );
                     continue;
                 }
 
-                if (!sessionParameters.ContainsKey("fb_sig_user") ||
-                  !sessionParameters.ContainsKey("token") ||
-                  !sessionParameters.ContainsKey("flashRevision"))
-                {
-                    Program.Instance.Logger.Log(Everworld.Logging.Logger.LogLevel.Error,"Login","Login session info was not set, retrying in 30 seconds.");
-                    System.Threading.Thread.Sleep(60 * 1000);
+                if ( !sessionParameters.ContainsKey( "fb_sig_user" ) ||
+                     !sessionParameters.ContainsKey( "token" ) ||
+                     !sessionParameters.ContainsKey( "swfLocation" ) ) {
+                    Program.Instance.Logger.Log( Everworld.Logging.Logger.LogLevel.Error, "Login",
+                                                 "Login session info was not set, retrying in 30 seconds." );
+                    System.Threading.Thread.Sleep( 60 * 1000 );
                     continue;
                 }
-
+                string version = sessionParameters["swfLocation"].Split(new string[] { "embeds\\/v" }, StringSplitOptions.None )[1];
+                version = version.Split( new string[] {"\\/FarmGame"}, StringSplitOptions.None )[0];
+                                
                 Program.Instance.GameSession = GenerateGameSession(sessionParameters["fb_sig_user"], sessionParameters["token"], sessionParameters["flashRevision"]);
+
                 Program.Instance.GameSession.LoadGameSettings();
                 foreach (Script script in ScriptManager.Instance.Scripts)
                     if (!script.SessionStartup(Program.Instance.GameSession))
